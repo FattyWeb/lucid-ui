@@ -1,0 +1,38 @@
+@import "../../../styles/mixins";
+
+.vs-button-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .vs-button {
+    margin: 0;
+  }
+
+  .vs-button:not(:last-of-type):not(:first-of-type) {
+    border-radius: 0;
+    border: 0;
+
+    &.vs-button--border {
+      &:before {
+        border-left: 0;
+        width: 100%;
+      }
+
+      + .vs-button--border:not(:last-of-type) {
+        &:before {
+          border-right: 0;
+          width: calc(100%);
+        }
+      }
+    }
+  }
+
+  .vs-button:last-of-type {
+    border-radius: 0 12px 12px 0;
+  }
+
+  .vs-button:first-of-type {
+    border-radius: 12px 0 0 12px;
+  }
+}

@@ -1,0 +1,132 @@
+@import "../../../styles/mixins";
+
+.isMultipleSelected {
+  .vs-table__tr {
+    .vs-table__td {
+      border-radius: 0 !important;
+    }
+  }
+}
+
+.vs-table__tr {
+  padding: 5px;
+  border: 0;
+
+  &.expand {
+    cursor: pointer;
+  }
+
+  &.vs-change-color {
+    .vs-table__td {
+      background: -color("color", 0.1) !important;
+      color: -color("color", 1) !important;
+
+      &:hover {
+        background: -color("color", 0.2) !important;
+      }
+    }
+  }
+
+  &:first-of-type {
+    .vs-table__td {
+      &:last-child {
+        border-radius: 0 0 15px 0;
+      }
+
+      &:first-child {
+        border-radius: 0 0 0 15px;
+      }
+    }
+  }
+
+  &.isExpand:first-of-type {
+    .vs-table__td {
+      background: -color("gray-1") !important;
+      border-radius: 0;
+    }
+  }
+
+  &.isExpand:not(:first-of-type) {
+    .vs-table__td {
+      background: -color("gray-1") !important;
+
+      &:last-child {
+        border-radius: 0 15px 0 0;
+      }
+
+      &:first-child {
+        border-radius: 15px 0 0 0;
+      }
+    }
+
+    + .vs-table__tr__expand {
+      td {
+        border-radius: 0 0 15px 15px !important;
+      }
+    }
+  }
+
+  &.selected {
+    .vs-table__td {
+      background: -color("color", 0.1) !important;
+      color: -color("color", 1) !important;
+    }
+  }
+
+  .vs-table__td {
+    background: -color("bg", 0.1);
+    color: -color("bg", 1);
+  }
+
+  &.vs-change-color {
+    &:hover {
+      .vs-table__td {
+        background: -color("color", 0.2) !important;
+      }
+    }
+  }
+
+  &:hover {
+    .vs-table__td {
+      background: -color("gray-1");
+    }
+  }
+}
+
+.vs-table__tr__expand {
+  transition: all 0.25s ease;
+  border: 0;
+
+  td {
+    transition: all 0.25s ease;
+    padding: 0;
+    background: -color("gray-1") !important;
+    border: 0;
+
+    .vs-table__expand__td__content {
+      overflow: hidden;
+      display: block;
+      transition: all 0.25s ease;
+
+      &__sub {
+        padding: 10px 15px;
+        z-index: 1;
+        position: relative;
+      }
+    }
+  }
+}
+
+.fade-expand-enter-active, .fade-expand-leave-active {
+  transition: all 0.25s ease;
+}
+
+.fade-expand-enter-from, .fade-expand-leave-to {
+  opacity: 0;
+
+  td {
+    .vs-table__expand__td__content {
+      height: 0 !important;
+    }
+  }
+}

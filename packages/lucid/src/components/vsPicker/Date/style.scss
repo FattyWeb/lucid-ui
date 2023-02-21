@@ -1,0 +1,259 @@
+@import 'root';
+@import "../../../styles/bem.scss";
+@import '../../../styles/mixins';
+
+.normal-transition{
+  transition: all .2s ease-in-out;
+}
+
+@include block(calendar) {
+  * {
+    //padding: 0;
+    //margin: 0;
+    box-sizing: border-box;
+  }
+  height: max-content;
+  width: max-content;
+  background-color: -color('background');
+  border-radius: 30px;
+  padding: 10px;
+
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  transform: scale(0.9);
+  animation: float 400ms ease-out forwards;
+
+  @include element(header) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 22px;
+    font-weight: 600;
+    color: -color((text),1);
+    padding: 5px;
+  }
+
+  @include element(body) {
+    padding: 0 10px 0 10px;
+  }
+
+  @include element(week-day) {
+    height: 40px;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    font-weight: 600;
+    div {
+      display: grid;
+      place-items: center;
+      color: -color((text), 1);
+    }
+  }
+
+  @include element(days){
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+    color: -color((text), 1);
+    cursor: pointer;
+    div {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 5px;
+      position: relative;
+      transform: translateY(100%);
+      opacity: 0;
+      animation: to-top 1s forwards;
+      transition: all .2s ease-in-out;
+      border-radius: 10px;
+      &::before{
+        content: '';
+        background: -color(color, 0.15);
+        opacity: 0;
+        position: absolute;
+        z-index: -1;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: inherit;
+        pointer-events: none;
+        transition: all .3s ease;
+        transform: scale(.4);
+        box-sizing: border-box
+      }
+      *{
+        transition: transform .2s ease-in-out;
+      }
+      &:hover:not(.vs-calendar__days--current, .vs-calendar__days--empty,  .vs-calendar__days--disable) {
+        &::before{
+          opacity: 1;
+          transform: scale(1)
+        }
+        span {
+          transform: scale(1.2);
+        }
+      }
+    }
+
+    @include modifier(current){
+      background-color: -color(color);
+      color: -var(highlight);
+    }
+
+    @include modifier(force-hover){
+      &::before{
+        opacity: 1 !important;
+        transform: scale(1) !important
+      }
+    }
+
+    @include modifier(click){
+      background-color: -color(color, 0.5);
+      color: -var(highlight);
+    }
+
+    @include modifier(disable){
+      color: -color('gray-2');
+      cursor: not-allowed;
+    }
+
+
+
+    @include modifier(choose){
+      color: -color(color);
+    }
+  }
+
+  @include element(month-picker){
+    @extend .normal-transition;
+    padding: 5px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    &:hover {
+      background-color: rgba(var(--vs-gray-3),1);
+    }
+  }
+
+  @include element(year-picker) {
+    display: flex;
+    align-items: center;
+  }
+
+  @include element(year-change) {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background-color .2s linear;
+    &:hover {
+      background-color: rgba(var(--vs-gray-3),1);
+      .vs-calendar__year-change--left {
+        animation: left 350ms ease-in-out;
+      }
+      .vs-calendar__year-change--right{
+        animation: right 350ms ease-in-out;
+      }
+    }
+    @include modifier(left) {
+      height: 20px
+    }
+    @include modifier(left) {
+      height: 20px
+    }
+  }
+
+  @include element(footer) {
+    padding: 0 10px 0 10px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  @include element(month-list) {
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgb(var(--vs-background),1);
+    padding: 20px;
+    grid-template-columns: repeat(3, auto);
+    gap: 5px;
+    display: grid;
+    transform: scale(1.5);
+    visibility: hidden;
+    pointer-events: none;
+
+    @include modifier(show) {
+      transform: scale(1);
+      visibility: visible;
+      pointer-events: visible;
+      transition: all 0.2s ease-in-out;
+    }
+
+    &> div {
+      transition: background-color .2s ease-in-out;
+      display: grid;
+      place-items: center;
+      border-radius: 10px;
+      text-align: center;
+      cursor: pointer;
+      color: rgba(var(--vs-text),1);
+      &:hover {
+        background-color: rgba(var(--vs-gray-3), 1);
+      }
+    }
+  }
+}
+
+@keyframes to-top {
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes left {
+  0% {
+    transform: translateX(0);
+  }
+
+  50% {
+    transform: translateX(-5px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes right {
+  0% {
+    transform: translateX(0);
+  }
+
+  50% {
+    transform: translateX(5px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes float {
+  100% {
+    box-shadow: rgba(0,0,0,var(--vs-shadow-opacity)) 0 0 25px 0;
+    transform: scale(1);
+  }
+}
+
+

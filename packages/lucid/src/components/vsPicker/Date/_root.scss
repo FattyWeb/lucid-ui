@@ -1,0 +1,6 @@
+@import "../../../styles/bem.scss";
+
+@include block(calendar) {
+  --vs-color: var(--vs-primary);
+  --vs-highlight: #fff;
+}

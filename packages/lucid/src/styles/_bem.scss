@@ -1,0 +1,123 @@
+/**
+ * SCSS 配置项：命名空间以及BEM
+ */
+$namespace: 'vs'; // 前缀命名空间可以修改，根据自己需要来
+$elementSeparator: '__';
+$modifierSeparator: '--';
+$state-prefix: 'is-';
+
+/* 转换成字符串 */
+@function selectorToString($selector) {
+  $selector: inspect($selector);
+  $selector: str-slice($selector, 2, -2);
+
+  @return $selector;
+}
+
+/* 判断是否存在 Modifier */
+@function containsModifier($selector) {
+  $selector: selectorToString($selector);
+
+  @if str-index($selector, $modifierSeparator) {
+    @return true;
+  } @else {
+    @return false;
+  }
+}
+
+/* 判断是否存在伪类 */
+@function containsPseudo($selector) {
+  $selector: selectorToString($selector);
+
+  @if str-index($selector, ':') {
+    @return true;
+  } @else {
+    @return false;
+  }
+}
+
+/**
+ * BEM
+ */
+@mixin block($block) {
+  $B: $namespace + '-' + $block !global;
+
+  .#{$B} {
+    @content;
+  }
+}
+/* 对于伪类，会自动将 e 嵌套在 伪类 底下 */
+@mixin element($element...) {
+  $selector: &;
+  $selectors: '';
+
+  @if containsPseudo($selector) {
+    @each $item in $element {
+      $selectors: #{$selectors + '.' + $B + $elementSeparator + $item + ','};
+    }
+    @at-root {
+      #{$selector} {
+        #{$selectors} {
+          @content;
+        }
+      }
+    }
+  } @else {
+    @each $item in $element {
+      $selectors: #{$selectors + $selector + $elementSeparator + $item + ','};
+    }
+    @at-root {
+      #{$selectors} {
+        @content;
+      }
+    }
+  }
+}
+@mixin modifier($modifier...) {
+  $selectors: '';
+  @each $item in $modifier {
+    $selectors: #{$selectors + & + $modifierSeparator + $item + ','};
+  }
+
+  @at-root {
+    #{$selectors} {
+      @content;
+    }
+  }
+}
+/* 对于需要需要嵌套在 m 底下的 e，调用这个混合宏，一般在切换整个组件的状态，如切换颜色的时候 */
+@mixin me($element...) {
+  $selector: &;
+  $selectors: '';
+
+  @if containsModifier($selector) {
+    @each $item in $element {
+      $selectors: #{$selectors + '.' + $B + $elementSeparator + $item + ','};
+    }
+    @at-root {
+      #{$selector} {
+        #{$selectors} {
+          @content;
+        }
+      }
+    }
+  } @else {
+    @each $item in $element {
+      $selectors: #{$selectors + $selector + $elementSeparator + $item + ','};
+    }
+    @at-root {
+      #{$selectors} {
+        @content;
+      }
+    }
+  }
+}
+
+/* 状态 */
+@mixin when($state) {
+  @at-root {
+    &.#{$state-prefix + $state} {
+      @content;
+    }
+  }
+}

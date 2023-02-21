@@ -1,0 +1,90 @@
+@import "../../../styles/bem.scss";
+@import '../../../styles/mixins';
+@import 'root';
+
+@include block(message-parent){
+  padding: 10px 0;
+  transform: translate(-50%);
+
+  position: fixed;
+  bottom: auto;
+  left: 50%;
+  right: auto;
+  top: 20px;
+  z-index: 200001;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-direction: column;
+
+  transition: all .25s ease;
+}
+
+@include block(message){
+  width: 0;
+  height: 35px;
+  margin-bottom: 20px;
+  background-color: -color('background');
+  border-radius: 12px;
+  position: relative;
+
+  animation: appear .3s .4s forwards;
+  animation-timing-function: cubic-bezier(.37,.84,.66,1);
+
+  @include element(icon-box){
+    box-shadow: 2px 2px 10px 2px -color('color', 0.1);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:20px;
+    width: 35px;
+    height: 35px;
+    color:white;
+    position: absolute;
+    background-color: -color('color', 1);
+    border-radius: 12px;
+    top: -8px;
+    left: -8px;
+    transform: scale(0);
+
+    animation: elastic-appear .4s forwards;
+    animation-timing-function:  cubic-bezier(0,1.22,.66,3)
+  }
+
+  @include element(wrap){
+    color: -color(text);
+    white-space: nowrap;
+    height: 100%;
+    overflow: hidden;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+  }
+}
+
+.message-leave-active {
+  transition: all .35s ease-out;
+}
+.message-leave-to {
+  transform: translateY(-20px);
+  opacity: 0;
+}
+
+@keyframes elastic-appear {
+  0%{
+    transform: scale(0);
+  }
+
+  100%{
+    transform: scale(1);
+  }
+}
+
+@keyframes appear {
+  100%{
+    width: 300px;
+    padding: 0 25px;
+    box-shadow: rgba(0,0,0,var(--vs-shadow-opacity)) 0 0 25px 0;
+  }
+}

@@ -1,0 +1,11 @@
+.vs-button {
+  --vs-color: '';
+  --vs-color-rotate: var(--vs-primary);
+  --vs-color-darken: var(--vs-primary);
+
+  // 组件变量
+  --vs-button-padding: 8px 12px;
+  --vs-button-margin: 5px;
+  --vs-button-border-radius: 12px;
+  --vs-button-text-color: #fff;
+}

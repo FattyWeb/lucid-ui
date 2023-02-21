@@ -1,0 +1,145 @@
+@import "../../../styles/bem.scss";
+@import '../../../styles/mixins';
+@import 'root';
+
+@mixin transition-active {
+  transition: all .3s ease-out;
+}
+
+@mixin transition-timing {
+  //transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transition: all .3s ease-out;
+}
+
+// vue Transition过渡
+.switch {
+  &-enter {
+    &-from {
+      transform: translateX(0%);
+    }
+
+    &-active {
+      @include transition-active;
+    }
+
+    &-to {
+      transform: translateX(-99.5%);
+    }
+  }
+
+  &-leave {
+    &-from {
+      transform: translateX(0%);
+    }
+
+    &-active {
+      @include transition-active
+    }
+
+    &-to {
+      transform: translateX(-100.5%);
+    }
+  }
+
+  &-reverse-leave {
+    &-from {
+      transform: translateX(0);
+    }
+
+    &-active {
+      @include transition-active
+    }
+
+    &-to {
+      transform: translateX(105%);
+    }
+  }
+
+  &-reverse-enter {
+    &-from {
+      transform: translateX(-200%);
+    }
+
+    &-active {
+      @include transition-active
+    }
+
+    &-to {
+      transform: translateX(-98.5%);
+    }
+  }
+}
+
+@include block(tabs) {
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+
+  @include element(header) {
+    width: fit-content;
+    padding: 0 5px;
+    margin: 10px auto 10px auto;
+    background-color: -color('color', .2);
+    border-radius: 15px;
+    position: relative;
+  }
+
+  @include element(content) {
+    height: 100%;
+    margin: 0 0 20px 0;
+    border-radius: 15px;
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  @include element(content-item) {
+    //height: 100%;
+    width: calc(100% - 20px);
+    margin: auto;
+    border-radius: 15px;
+    color: -color('text');
+    background-color: -color('gray-1');
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  @include element(header-wrap) {
+    position: relative;
+  }
+
+  @include element(items) {
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+  }
+
+  @include element(item) {
+    @include transition-timing;
+    list-style-type: none;
+    float: left;
+    color: -color('color');
+    text-decoration: none;
+    font-size: 15px;
+    display: block;
+    padding: 10px 20px;
+    transition-duration: 0.3s;
+    position: relative;
+    cursor: pointer;
+    @include modifier(active) {
+      color: -color('text');
+      transition: all 0.3s;
+    }
+  }
+
+  @include element(selector) {
+    @include transition-timing;
+    display: inline-block;
+    position: absolute;
+    top: 5px;
+    left: 0;
+    transition-duration: .3s;
+    background-color: -color('background');
+    border-radius: 10px;
+  }
+}

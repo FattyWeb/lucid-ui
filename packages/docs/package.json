@@ -1,0 +1,40 @@
+{
+  "name": "docs",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "docs-server": "vuepress dev",
+    "docs-build": "vuepress build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@vuepress/client": "2.0.0-beta.46",
+    "@vuepress/plugin-active-header-links": "2.0.0-beta.46",
+    "@vuepress/plugin-register-components": "2.0.0-beta.46",
+    "@vuepress/plugin-theme-data": "2.0.0-beta.46",
+    "boxicons": "^2.0.5",
+    "css-loader": "^3.2.0",
+    "fibers": "^4.0.2",
+    "mini-css-extract-plugin": "^2.6.0",
+    "postcss-loader": "^3.0.0",
+    "sass": "^1.45.0",
+    "sass-loader": "^13.0.0",
+    "vuepress": "2.0.0-beta.46",
+    "webpack": "^5.0.0"
+  },
+  "dependencies": {
+    "firebase": "^7.6.1",
+    "lucid": "1.0.0-alpha.43",
+    "stylus": "^0.54.8",
+    "stylus-loader": "^3.0.2",
+    "typescript": "~4.1.5",
+    "vite": "2.8.6",
+    "vue": "^3.2.35",
+    "vue-script2": "^2.1.0",
+    "vuepress-plugin-google-adsense": "0.0.4"
+  }
+}

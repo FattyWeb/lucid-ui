@@ -1,0 +1,25 @@
+<template>
+  <div class="center">
+    <vs-button
+      to="/"
+      flat
+      >
+      跳转
+    </vs-button>
+    <vs-button
+      href="http://vuesax.com/"
+      success
+      flat
+    >
+      路由替换
+    </vs-button>
+    <vs-button
+      href="http://vuesax.com/"
+      blank
+      danger
+      flat
+    >
+      外部链接
+    </vs-button>
+  </div>
+</template>

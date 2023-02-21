@@ -1,0 +1,21 @@
+@import "../../../styles/mixins";
+
+.vs-navbar__item {
+  padding: 10px 15px;
+  margin: 0;
+  border: 0;
+  background: transparent;
+  font-size: 0.85rem;
+  opacity: 0.7;
+  transition: all 0.25s ease, color 0s;
+  font-weight: bold;
+  color: inherit;
+
+  &.active {
+    opacity: 1;
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+}
