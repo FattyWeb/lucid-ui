@@ -8,7 +8,7 @@ Lucid Framework Components for Vuejs3.x
 
 ## Documentation
 
-[lucid-ui](http://123.57.57.75:8080)
+[lucid-ui 点击预览](http://123.57.57.75:8080)
 
 ## Status: Beta
 
