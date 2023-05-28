@@ -1,7 +1,7 @@
 import { defineClientConfig } from '@vuepress/client'
 import { reactive } from "vue";
 import Lucid from 'lucid'
-import 'lucid/dist/lucid.css'
+import 'lucid/dist/Lucid.css'
 import 'boxicons/css/boxicons.min.css'
 
 export default defineClientConfig({
